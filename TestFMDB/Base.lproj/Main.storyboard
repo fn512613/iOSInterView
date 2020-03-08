@@ -24,17 +24,17 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Gly-VI-wCL">
-                                <rect key="frame" x="164.5" y="617" width="46" height="30"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zc9-4z-V82">
+                                <rect key="frame" x="16" y="617" width="46" height="30"/>
                                 <color key="backgroundColor" red="0.2901960784" green="0.56470588239999997" blue="0.8862745098" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="30" id="P9f-6F-0jl"/>
+                                    <constraint firstAttribute="height" constant="30" id="vnd-gd-NFP"/>
                                 </constraints>
-                                <state key="normal" title="下一题">
+                                <state key="normal" title="上一题">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <connections>
-                                    <action selector="clickBtn:" destination="BYZ-38-t0r" eventType="touchUpInside" id="WJB-j1-dM9"/>
+                                    <action selector="clickForword:" destination="BYZ-38-t0r" eventType="touchUpInside" id="o1R-bk-e8V"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="题目：" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="asz-fc-CSO">
@@ -43,17 +43,33 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Gly-VI-wCL">
+                                <rect key="frame" x="313" y="617" width="46" height="30"/>
+                                <color key="backgroundColor" red="0.2901960784" green="0.56470588239999997" blue="0.8862745098" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="P9f-6F-0jl"/>
+                                </constraints>
+                                <state key="normal" title="下一题">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="clickNext:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Tn9-3F-1H0"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="Gly-VI-wCL" secondAttribute="bottom" constant="20" id="0Gg-I3-DMM"/>
                             <constraint firstItem="b5Z-9d-RcF" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="11" id="2WK-NY-LGB"/>
                             <constraint firstItem="asz-fc-CSO" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="67a-uJ-E2Z"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Gly-VI-wCL" secondAttribute="trailing" constant="16" id="HhQ-RR-gTw"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="asz-fc-CSO" secondAttribute="trailing" constant="16" id="JkT-KU-nN3"/>
-                            <constraint firstItem="Gly-VI-wCL" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="VC5-nv-vvy"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="b5Z-9d-RcF" secondAttribute="trailing" constant="11" id="aFd-Hy-CHF"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="zc9-4z-V82" secondAttribute="bottom" constant="20" id="qQw-N6-2CY"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="b5Z-9d-RcF" secondAttribute="bottom" constant="71" id="sKJ-m1-NWQ"/>
+                            <constraint firstItem="zc9-4z-V82" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="vkp-QM-r88"/>
                             <constraint firstItem="asz-fc-CSO" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="10" id="y2r-xy-cmJ"/>
+                            <constraint firstItem="Gly-VI-wCL" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="zc9-4z-V82" secondAttribute="trailing" constant="8" symbolic="YES" id="y5r-Y0-66e"/>
                             <constraint firstItem="b5Z-9d-RcF" firstAttribute="top" secondItem="asz-fc-CSO" secondAttribute="bottom" constant="5" id="yLk-o8-ydJ"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>

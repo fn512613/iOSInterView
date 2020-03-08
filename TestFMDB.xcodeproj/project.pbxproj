@@ -86,11 +86,11 @@
 		F5C9405923FFDE4700B20B2D /* TestFMDB */ = {
 			isa = PBXGroup;
 			children = (
+				F51603082414C33D002D7DA6 /* data.plist */,
 				F5C9405A23FFDE4700B20B2D /* AppDelegate.h */,
 				F5C9405B23FFDE4700B20B2D /* AppDelegate.m */,
 				F5C9405D23FFDE4700B20B2D /* ViewController.h */,
 				F5C9405E23FFDE4700B20B2D /* ViewController.m */,
-				F51603082414C33D002D7DA6 /* data.plist */,
 				F5C9406023FFDE4700B20B2D /* Main.storyboard */,
 				F5C9406623FFDE5400B20B2D /* Assets.xcassets */,
 				F5C9406823FFDE5400B20B2D /* LaunchScreen.storyboard */,

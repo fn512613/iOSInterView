@@ -14,6 +14,7 @@
 @property (nonatomic, strong) FMDatabase *fmdb;
 @property (nonatomic, strong) NSMutableArray *data;
 @property (nonatomic, strong) NSMutableArray *randData;
+@property (nonatomic, assign) NSInteger num;//题号
 
 
 @end
@@ -22,21 +23,30 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-//    NSString *path = [[NSBundle mainBundle]pathForResource:@"data" ofType:@"plist"];
-//    NSMutableDictionary *dic = [NSMutableDictionary dictionaryWithContentsOfFile:path];
-//    NSLog(@"%@",dic);
-    [self creatDatabase];
-    [self inquiryData:self.fmdb];
-    
-//    [self creatTable:self.fmdb];
-//    [dic enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
-//        [self addData:self.fmdb andTitle:key content:obj];
-//    }];
-
+    [self dataInit];
 }
 
+- (void)dataInit{
+    [self creatDatabase];
+    if (![self inquiryData:self.fmdb]) {
+        NSLog(@"创建表");
+        if ([self creatTable:self.fmdb]) {
+            NSLog(@"插入数据");
+            NSString *path = [[NSBundle mainBundle]pathForResource:@"data" ofType:@"plist"];
+            NSMutableDictionary *dic = [NSMutableDictionary dictionaryWithContentsOfFile:path];
+            [dic enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
+                [self addData:self.fmdb andTitle:key content:obj];
+            }];
+            [self inquiryData:self.fmdb];
+        }
+    }else{
+        [self showItem];
+    }
+}
+
+
+
 - (void)randArray{
-   
     NSMutableArray *array = self.data;
     NSMutableArray *randomArray = [[NSMutableArray alloc] init];
     while ([randomArray count] < 35) {
@@ -48,26 +58,31 @@
     self.randData = randomArray;
 }
 
-- (IBAction)clickBtn:(id)sender {
-    [self randNum];
-
-   
-    
-    
-}
-
-- (void)randNum{
-    static int x = 0;
-    
-    if (x == 35) {
-        NSLog(@"做完题了");
+- (IBAction)clickForword:(id)sender {
+    if (self.num-1<0) {
+        NSLog(@"已是第一题");
         return;
     }
-    NSDictionary *dic = self.randData[x];
-    self.titleLbl.text = [NSString stringWithFormat:@"题目%d: %@",x+1,dic[@"title"]];
-    self.contentView.text = dic[@"content"];
-    ++x;
+    --self.num;
+    [self showItem];
 }
+
+
+- (IBAction)clickNext:(id)sender {
+    if (self.num+1 == 35) {
+        NSLog(@"最后一题");
+        return;
+    }
+    ++self.num;
+    [self showItem];
+}
+
+- (void)showItem{
+    NSDictionary *dic = self.randData[self.num];
+    self.titleLbl.text = [NSString stringWithFormat:@"题目%ld: %@",self.num+1,dic[@"title"]];
+    self.contentView.text = dic[@"content"];
+}
+
 
 - (void)creatDatabase{
     NSString *docPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];//获取沙盒地址
@@ -82,13 +97,14 @@
     self.fmdb = fmdb;
 }
 
-- (void)creatTable:(FMDatabase *)fmdb{
+- (BOOL)creatTable:(FMDatabase *)fmdb{
     BOOL executeUpdate = [fmdb executeUpdate:@"CREATE TABLE IF NOT EXISTS question(id integer PRIMARY KEY AUTOINCREMENT,title text NOT NULL,content text NOT NULL, level integer NOT NULL DEFAULT '0' );"];
     if (executeUpdate){
         NSLog(@"创建表成功");
     }else{
         NSLog(@"创建表失败");
     }
+    return executeUpdate;
 }
 
 - (void)addData:(FMDatabase *)fmdb andTitle:(NSString *)title content:(NSString *)content{
@@ -101,7 +117,7 @@
 }
 
 
-- (void)inquiryData:(FMDatabase *)fmdb{
+- (BOOL)inquiryData:(FMDatabase *)fmdb{
     FMResultSet *resultSet = [fmdb executeQuery:@"select * from question"];
     while ([resultSet next]) {
         NSString *title = [resultSet objectForColumn:@"title"];
@@ -109,8 +125,17 @@
         [self.data addObject:@{@"title":title,
                                @"content":content}];
     }
-    [self.fmdb close];
-    [self randArray];
+    if (self.data.count>0) {
+        [self.fmdb close];
+        [self randArray];
+        [self showItem];
+        NSLog(@"打乱数组");
+        return true;
+    }else{
+        NSLog(@"查询数据失败");
+        return false;
+    }
+    
 }
 
 - (NSMutableArray *)data{
