@@ -24,6 +24,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self dataInit];
+    self.contentView.alpha = 0;
 }
 
 - (void)dataInit{
@@ -47,9 +48,9 @@
 
 
 - (void)randArray{
-    NSMutableArray *array = self.data;
+    NSMutableArray *array = [self.data mutableCopy];
     NSMutableArray *randomArray = [[NSMutableArray alloc] init];
-    while ([randomArray count] < 35) {
+    while ([randomArray count] < self.data.count) {
         int r = arc4random() % [array count];
         [randomArray addObject:[array objectAtIndex:r]];
         [array removeObject:[array objectAtIndex:r]];
@@ -65,16 +66,27 @@
     }
     --self.num;
     [self showItem];
+    self.contentView.alpha = 0;
 }
 
 
 - (IBAction)clickNext:(id)sender {
-    if (self.num+1 == 35) {
+    if (self.num+1 == self.randData.count) {
         NSLog(@"最后一题");
         return;
     }
     ++self.num;
     [self showItem];
+    self.contentView.alpha = 0;
+}
+
+- (IBAction)clickAnswer:(id)sender {
+    [UIView animateWithDuration:1 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
+         self.contentView.alpha = 1;
+    } completion:^(BOOL finished) {
+        
+    }];
+    
 }
 
 - (void)showItem{
