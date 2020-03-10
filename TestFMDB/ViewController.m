@@ -8,14 +8,16 @@
 
 #import "ViewController.h"
 #import "FMDatabase.h"
+
 @interface ViewController ()
 @property (weak, nonatomic) IBOutlet UILabel *titleLbl;
 @property (weak, nonatomic) IBOutlet UITextView *contentView;
+
 @property (nonatomic, strong) FMDatabase *fmdb;
 @property (nonatomic, strong) NSMutableArray *data;
 @property (nonatomic, strong) NSMutableArray *randData;
 @property (nonatomic, assign) NSInteger num;//题号
-
+@property (nonatomic, strong) CALayer *layer;
 
 @end
 
@@ -24,7 +26,24 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self dataInit];
+    self.view.backgroundColor = [UIColor colorWithRed:243.0/255.0 green:248.0/255.0 blue:252.0/255.0 alpha:1];
     self.contentView.alpha = 0;
+    self.layer.hidden = true;
+}
+
+- (CALayer *)layer{
+    if (!_layer) {
+        _layer = [CALayer layer];
+        _layer.frame = self.contentView.frame;
+        _layer.cornerRadius = 6.0;
+        _layer.backgroundColor = [UIColor whiteColor].CGColor;
+        _layer.shadowColor = [UIColor grayColor].CGColor;
+        _layer.shadowOffset = CGSizeMake(10,10);
+        _layer.shadowRadius = 5.0;
+        _layer.shadowOpacity = 1.0;
+        [self.view.layer insertSublayer:_layer below:self.contentView.layer];
+    }
+    return _layer;
 }
 
 - (void)dataInit{
@@ -78,18 +97,21 @@
     ++self.num;
     [self showItem];
     self.contentView.alpha = 0;
+
 }
 
 - (IBAction)clickAnswer:(id)sender {
     [UIView animateWithDuration:1 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
-         self.contentView.alpha = 1;
+        self.contentView.alpha = 1;
+        self.layer.hidden = false;
+        self.layer.frame = self.contentView.frame;
     } completion:^(BOOL finished) {
         
     }];
-    
 }
 
 - (void)showItem{
+    self.layer.hidden = true;
     NSDictionary *dic = self.randData[self.num];
     self.titleLbl.text = [NSString stringWithFormat:@"题目%ld: %@",self.num+1,dic[@"title"]];
     self.contentView.text = dic[@"content"];

@@ -17,8 +17,8 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="答：" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="b5Z-9d-RcF">
-                                <rect key="frame" x="16" y="35.5" width="343" height="560.5"/>
-                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <rect key="frame" x="16" y="40.5" width="343" height="555.5"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
@@ -37,7 +37,6 @@
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="题目：" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="asz-fc-CSO">
                                 <rect key="frame" x="16" y="10" width="343" height="20.5"/>
-                                <color key="backgroundColor" systemColor="systemTealColor" red="0.35294117650000001" green="0.7843137255" blue="0.98039215690000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -69,7 +68,7 @@
                                 </connections>
                             </button>
                         </subviews>
-                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="Gly-VI-wCL" secondAttribute="bottom" constant="20" id="0Gg-I3-DMM"/>
                             <constraint firstItem="b5Z-9d-RcF" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="2WK-NY-LGB"/>
@@ -83,7 +82,7 @@
                             <constraint firstItem="zc9-4z-V82" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="vkp-QM-r88"/>
                             <constraint firstItem="vtN-Xw-YW8" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="x2e-73-Y93"/>
                             <constraint firstItem="asz-fc-CSO" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="10" id="y2r-xy-cmJ"/>
-                            <constraint firstItem="b5Z-9d-RcF" firstAttribute="top" secondItem="asz-fc-CSO" secondAttribute="bottom" constant="5" id="yLk-o8-ydJ"/>
+                            <constraint firstItem="b5Z-9d-RcF" firstAttribute="top" secondItem="asz-fc-CSO" secondAttribute="bottom" constant="10" id="yLk-o8-ydJ"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
