@@ -17,7 +17,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="答：" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="b5Z-9d-RcF">
-                                <rect key="frame" x="16" y="40.5" width="343" height="555.5"/>
+                                <rect key="frame" x="16" y="40.5" width="343" height="519.5"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
@@ -67,18 +67,27 @@
                                     <action selector="clickAnswer:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Vpv-Hx-YQf"/>
                                 </connections>
                             </button>
+                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="U7o-ER-SAp">
+                                <rect key="frame" x="60" y="566" width="255" height="31"/>
+                                <connections>
+                                    <action selector="moveSlider:" destination="BYZ-38-t0r" eventType="valueChanged" id="3Cq-DG-Eu3"/>
+                                </connections>
+                            </slider>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="Gly-VI-wCL" secondAttribute="bottom" constant="20" id="0Gg-I3-DMM"/>
                             <constraint firstItem="b5Z-9d-RcF" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="2WK-NY-LGB"/>
+                            <constraint firstItem="U7o-ER-SAp" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="62" id="5wz-49-zvS"/>
                             <constraint firstItem="asz-fc-CSO" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="67a-uJ-E2Z"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="U7o-ER-SAp" secondAttribute="trailing" constant="62" id="939-U0-Rc0"/>
+                            <constraint firstItem="vtN-Xw-YW8" firstAttribute="top" secondItem="U7o-ER-SAp" secondAttribute="bottom" constant="21" id="AVR-rm-Rek"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="vtN-Xw-YW8" secondAttribute="bottom" constant="20" id="BZt-Vd-zLd"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Gly-VI-wCL" secondAttribute="trailing" constant="16" id="HhQ-RR-gTw"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="asz-fc-CSO" secondAttribute="trailing" constant="16" id="JkT-KU-nN3"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="b5Z-9d-RcF" secondAttribute="trailing" constant="16" id="aFd-Hy-CHF"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="zc9-4z-V82" secondAttribute="bottom" constant="20" id="qQw-N6-2CY"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="b5Z-9d-RcF" secondAttribute="bottom" constant="71" id="sKJ-m1-NWQ"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="b5Z-9d-RcF" secondAttribute="bottom" constant="107" id="sKJ-m1-NWQ"/>
                             <constraint firstItem="zc9-4z-V82" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="vkp-QM-r88"/>
                             <constraint firstItem="vtN-Xw-YW8" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="x2e-73-Y93"/>
                             <constraint firstItem="asz-fc-CSO" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="10" id="y2r-xy-cmJ"/>
@@ -88,6 +97,7 @@
                     </view>
                     <connections>
                         <outlet property="contentView" destination="b5Z-9d-RcF" id="XKe-Nz-M9e"/>
+                        <outlet property="slider" destination="U7o-ER-SAp" id="nD6-Hr-Pcb"/>
                         <outlet property="titleLbl" destination="asz-fc-CSO" id="djC-Xu-64B"/>
                     </connections>
                 </viewController>

@@ -12,6 +12,7 @@
 @interface ViewController ()
 @property (weak, nonatomic) IBOutlet UILabel *titleLbl;
 @property (weak, nonatomic) IBOutlet UITextView *contentView;
+@property (weak, nonatomic) IBOutlet UISlider *slider;
 
 @property (nonatomic, strong) FMDatabase *fmdb;
 @property (nonatomic, strong) NSMutableArray *data;
@@ -112,6 +113,16 @@
     }];
 }
 
+- (IBAction)moveSlider:(UISlider *)sender {
+    if (self.num != (int)sender.value) {
+        self.num = (int)sender.value;
+        [self showItem];
+        self.contentView.alpha = 0;
+    }
+}
+
+
+
 - (void)showItem{
     self.layer.hidden = true;
     NSDictionary *dic = self.randData[self.num];
@@ -166,6 +177,8 @@
         [self randArray];
         [self showItem];
         NSLog(@"打乱数组");
+        self.slider.maximumValue = self.randData.count-1;
+        self.slider.minimumValue = 0;
         return true;
     }else{
         NSLog(@"查询数据失败");
