@@ -27,6 +27,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self dataInit];
+//    [self deleteTable:self.fmdb];//用于删除表
     self.view.backgroundColor = [UIColor colorWithRed:243.0/255.0 green:248.0/255.0 blue:252.0/255.0 alpha:1];
     self.contentView.layer.cornerRadius = 6.0;
     self.contentView.alpha = 0;
@@ -34,20 +35,7 @@
     
 }
 
-- (CALayer *)layer{
-    if (!_layer) {
-        _layer = [CALayer layer];
-        _layer.frame = self.contentView.frame;
-        _layer.cornerRadius = 6.0;
-        _layer.backgroundColor = [UIColor whiteColor].CGColor;
-        _layer.shadowColor = [UIColor grayColor].CGColor;
-        _layer.shadowOffset = CGSizeMake(10,10);
-        _layer.shadowRadius = 5.0;
-        _layer.shadowOpacity = 1.0;
-        [self.view.layer insertSublayer:_layer below:self.contentView.layer];
-    }
-    return _layer;
-}
+
 
 - (void)dataInit{
     [self creatDatabase];
@@ -184,8 +172,18 @@
         NSLog(@"查询数据失败");
         return false;
     }
-    
 }
+
+//删除表
+- (void)deleteTable:(FMDatabase *)fmdb{
+    BOOL result = [fmdb executeUpdate:@"drop table if exists question"];
+    if (result) {
+        NSLog(@"删除表成功");
+    }else{
+        NSLog(@"删除表失败");
+    }
+}
+
 
 - (NSMutableArray *)data{
     if (!_data) {
@@ -199,6 +197,21 @@
         _randData = [NSMutableArray array];
     }
     return _randData;
+}
+
+- (CALayer *)layer{
+    if (!_layer) {
+        _layer = [CALayer layer];
+        _layer.frame = self.contentView.frame;
+        _layer.cornerRadius = 6.0;
+        _layer.backgroundColor = [UIColor whiteColor].CGColor;
+        _layer.shadowColor = [UIColor grayColor].CGColor;
+        _layer.shadowOffset = CGSizeMake(10,10);
+        _layer.shadowRadius = 5.0;
+        _layer.shadowOpacity = 1.0;
+        [self.view.layer insertSublayer:_layer below:self.contentView.layer];
+    }
+    return _layer;
 }
 
 @end
