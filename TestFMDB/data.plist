@@ -395,5 +395,113 @@ Autorelease对象是在当前的runloop迭代结束时释放的，而它能够�
 	<key>为什么在默认情况下无法修改被Block获取的变量？</key>
 	<string>如果是局部变量，block是值传递
 如果是静态变量，全局变量，_block修饰的变量，block都是指针传递</string>
+	<key>Category 的实现原理？</key>
+	<string>Category 实际上是 Category_t的结构体，在运行时，新添加的方法，都被以倒序插入到原有方法列表的最前面，所以不同的Category，添加了同一个方法，执行的实际上是最后一个。
+
+Category 在刚刚编译完的时候，和原来的类是分开的，只有在程序运行起来后，通过 Runtime ，Category 和原来的类才会合并到一起。</string>
+	<key>isa指针的理解，对象的isa指针指向哪里？isa指针有哪两种类型？</key>
+	<string>    isa 等价于 is kind of
+
+实例对象的 isa 指向类对象
+
+类对象的 isa 指向元类对象
+
+元类对象的 isa 指向元类的基类
+
+    isa 有两种类型
+
+纯指针，指向内存地址
+
+NON_POINTER_ISA，除了内存地址，还存有一些其他信息</string>
+	<key>Objective-C 如何实现多重继承？</key>
+	<string>Object-c的类没有多继承,只支持单继承,如果要实现多继承的话，可使用如下几种方式间接实现
+
+    通过组合实现
+
+A和B组合，作为C类的组件
+
+    通过协议实现
+
+C类实现A和B类的协议方法
+
+    消息转发实现
+
+forwardInvocation:方法</string>
+	<key>讲一下 OC 的消息机制</key>
+	<string>OC中的方法调用其实都是转成了objc_msgSend函数的调用，给receiver（方法调用者）发送了一条消息（selector方法名）
+
+objc_msgSend底层有3大阶段，消息发送（当前类、父类中查找）、动态方法解析、消息转发</string>
+	<key>runtime如何通过selector找到对应的IMP地址？</key>
+	<string>每一个类对象中都一个对象方法列表（对象方法缓存）
+
+    类方法列表是存放在类对象中isa指针指向的元类对象中（类方法缓存）。
+
+    方法列表中每个方法结构体中记录着方法的名称,方法实现,以及参数类型，其实selector本质就是方法名称,通过这个方法名称就可以在方法列表中找到对应的方法实现。
+
+    当我们发送一个消息给一个NSObject对象时，这条消息会在对象的类对象方法列表里查找。
+
+    当我们发送一个消息给一个类时，这条消息会在类的Meta Class对象的方法列表里查找。</string>
+	<key>简述下Objective-C中调用方法的过程</key>
+	<string>Objective-C是动态语言，每个方法在运行时会被动态转为消息发送，即：objc_msgSend(receiver, selector)，整个过程介绍如下：
+
+    objc在向一个对象发送消息时，runtime库会根据对象的isa指针找到该对象实际所属的类
+
+    然后在该类中的方法列表以及其父类方法列表中寻找方法运行
+
+    如果，在最顶层的父类（一般也就NSObject）中依然找不到相应的方法时，程序在运行时会挂掉并抛出异常unrecognized selector sent to XXX
+
+    但是在这之前，objc的运行时会给出三次拯救程序崩溃的机会，这三次拯救程序奔溃的说明见问题《什么时候会报unrecognized selector的异常》中的说明。</string>
+	<key>load和initialize的区别</key>
+	<string>两者都会自动调用父类的，不需要super操作，且仅会调用一次（不包括外部显示调用).
+
+    load和initialize方法都会在实例化对象之前调用，以main函数为分水岭，前者在main函数之前调用，后者在之后调用。这两个方法会被自动调用，不能手动调用它们。
+
+    load和initialize方法都不用显示的调用父类的方法而是自动调用，即使子类没有initialize方法也会调用父类的方法，而load方法则不会调用父类。
+
+    load方法通常用来进行Method Swizzle，initialize方法一般用于初始化全局变量或静态变量。
+
+    load和initialize方法内部使用了锁，因此它们是线程安全的。实现时要尽可能保持简单，避免阻塞线程，不要再使用锁。</string>
+	<key>为什么CTMediator方案优于基于Router的方案？</key>
+	<string>调用时，区分了本地应用调用和远程应用调用。本地应用调用为远程应用调用提供服务。
+
+组件仅通过Action暴露可调用接口，模块与模块之间的接口被固化在了Target-Action这一层，避免了实施组件化的改造过程中，对Business的侵入，同时也提高了组件化接口的可维护性。
+
+方便传递各种类型的参数。</string>
+	<key>基于CTMediator的组件化方案，有哪些核心组成？</key>
+	<string>CTMediator中间件：集成就可以了
+
+模块Target_%@：模块的实现及提供对外的方法调用Action_methodName，需要传参数时，都统一以NSDictionary*的形式传入。
+
+CTMediator+%@扩展：扩展里声明了模块业务的对外接口，参数明确，这样外部调用者可以很容易理解如何调用接口。</string>
+	<key>如何实现一个线程安全的 NSMutableArray?</key>
+	<string>NSMutableArray是线程不安全的，当有多个线程同时对数组进行操作的时候可能导致崩溃或数据错误
+
+    线程锁：使用线程锁对数组读写时进行加锁
+
+    派发队列：在《Effective Objective-C 2.0..》书中第41条：多用派发队列，少用同步锁中指出：使用“串行同步队列”（serial synchronization queue），将读取操作及写入操作都安排在同一个队列里，即可保证数据同步。
+
+而通过并发队列，结合GCD的栅栏块（barrier）来不仅实现数据同步线程安全，还比串行同步队列方式更高效。</string>
+	<key>id 和 instanceType 有什么区别？</key>
+	<string>    相同点
+
+instancetype 和 id 都是万能指针，指向对象。
+
+    不同点：
+
+1.id 在编译的时候不能判断对象的真实类型，instancetype 在编译的时候可以判断对象的真实类型。
+
+2.id 可以用来定义变量，可以作为返回值类型，可以作为形参类型；instancetype 只能作为返回值类型。</string>
+	<key>self和super的区别</key>
+	<string>    self调用自己方法，super调用父类方法
+
+    self是类，super是预编译指令
+
+    [self class] 和 [super class] 输出是一样的
+
+    self和super底层实现原理
+
+1.当使用 self 调用方法时，会从当前类的方法列表中开始找，如果没有，就从父类中再找；
+
+而当使用 super 时，则从父类的方法列表中开始找，然后调用父类的这个方法</string>
 </dict>
 </plist>

@@ -27,8 +27,10 @@
     [super viewDidLoad];
     [self dataInit];
     self.view.backgroundColor = [UIColor colorWithRed:243.0/255.0 green:248.0/255.0 blue:252.0/255.0 alpha:1];
+    self.contentView.layer.cornerRadius = 6.0;
     self.contentView.alpha = 0;
     self.layer.hidden = true;
+    
 }
 
 - (CALayer *)layer{
