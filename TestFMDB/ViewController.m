@@ -27,7 +27,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self dataInit];
-//    [self deleteTable:self.fmdb];//用于删除表
+    
     self.view.backgroundColor = [UIColor colorWithRed:243.0/255.0 green:248.0/255.0 blue:252.0/255.0 alpha:1];
     self.contentView.layer.cornerRadius = 6.0;
     self.contentView.alpha = 0;
@@ -214,4 +214,70 @@
     return _layer;
 }
 
+
+- (float)getTotalPrice:(NSString *)type price:(float)price{
+    if ([type  isEqual: @"9折"]) {
+        return price*0.9;
+    }else if ([type  isEqual: @"8折"]) {
+        return price*0.8;
+    }else if ([type  isEqual: @"300-50"]) {
+        return price-30;
+    }
+    return price;
+}
+
+
+
 @end
+
+
+@interface Dicounnt : NSObject
+- (float)discount:(float)price;
+@end
+@implementation Dicounnt
+- (float)discount:(float)price{
+    return 0;
+}
+@end
+
+@interface discountNight : Dicounnt
+@end
+@implementation discountNight
+- (float)discount:(float)price{
+    return price*0.9;
+}
+@end
+
+@interface discountSeven : Dicounnt
+@end
+@implementation discountSeven
+- (float)discount:(float)price{
+    return price*0.7;
+}
+@end
+
+@interface discountCutThirty : Dicounnt
+@end
+@implementation discountCutThirty
+- (float)discount:(float)price{
+    return price-30;
+}
+@end
+
+
+@interface Price : NSObject
+@property (nonatomic, strong) Dicounnt *type;
+- (float)getTotalPrice:(float)price;
+@end
+
+@implementation Price
+- (float)getTotalPrice:(float)price{
+    return [self.type discount:price];
+}
+
+@end
+
+
+
+
+
